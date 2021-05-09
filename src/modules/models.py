@@ -21,13 +21,14 @@ class Model:
     def __call__(self) -> np.ndarray:
         self.eval()
 
-        fake_noise = get_noise(1, self.z_dim, device=self.device)
-        fake = gen(fake_noise)[0]
+        with torch.no_grad():
+            fake_noise = get_noise(1, self.z_dim, device=self.device)
+            fake = self.generator(fake_noise)[0]
 
-        image_tensor = (fake + 1) / 2
-        image = image_tensor.detach().cpu().numpy().transpose(1, 2, 0)
+            image_tensor = (fake + 1) / 2
+            image = image_tensor.detach().cpu().numpy().transpose(1, 2, 0)
 
-        return image
+            return image
 
 
 
