@@ -1,8 +1,14 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+from PIL import Image
 
 from modules import get_model
 
+icon = Image.open("resources/assets/icon.png")
+st.set_page_config(
+    page_title="This Kulbaba Does Not Exist", 
+    page_icon=icon, 
+)
 
 @st.cache()
 def cached_model():
