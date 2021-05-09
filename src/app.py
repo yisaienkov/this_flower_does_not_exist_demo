@@ -1,7 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 
-
 from modules import get_model
 
 

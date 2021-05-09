@@ -1,6 +1,7 @@
 from typing import Dict
 
 import numpy as np
+import torch
 
 from .generators import GeneratorWGAN
 from .utils import get_noise
