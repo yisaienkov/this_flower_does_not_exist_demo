@@ -12,7 +12,7 @@ st.set_page_config(
 
 @st.cache()
 def cached_model():
-    model = get_model("2021-05-09_wgan_generator")
+    model = get_model("2021-05-10_14-35-05_wgan_generator")
     return model
 
 

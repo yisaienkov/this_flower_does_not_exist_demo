@@ -8,15 +8,15 @@ from .utils import get_noise
 
 
 class Model:
-    def __init__(self, device):
+    def __init__(self, device: str):
         self.z_dim = 64
-        self.generator = GeneratorWGAN().to(device)
-        self.device = device
+        self.device = torch.device(device)
+        self.generator = GeneratorWGAN().to(self.device)
 
     def load_state_dict(self, state_dict: Dict) -> None:
         self.generator.load_state_dict(state_dict["model_state_dict"])
 
-    def eval(self):
+    def eval(self) -> None:
         self.generator.eval()
 
     def __call__(self) -> np.ndarray:

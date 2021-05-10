@@ -16,7 +16,14 @@ class GeneratorWGAN(nn.Module):
             self.make_gen_block(hidden_dim, im_chan, kernel_size=4, final_layer=True),
         )
 
-    def make_gen_block(self, input_channels, output_channels, kernel_size=3, stride=2, final_layer=False):
+    def make_gen_block(
+        self, 
+        input_channels: int, 
+        output_channels: int, 
+        kernel_size: int = 3, 
+        stride: int = 2, 
+        final_layer: bool = False,
+    ) -> nn.Sequential:
         if not final_layer:
             return nn.Sequential(
                 nn.ConvTranspose2d(input_channels, output_channels, kernel_size, stride),
