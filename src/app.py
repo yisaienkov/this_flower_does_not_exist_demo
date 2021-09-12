@@ -1,34 +1,59 @@
+from os import truncate
 import streamlit as st
 import matplotlib.pyplot as plt
 from PIL import Image
+from omegaconf import OmegaConf, DictConfig
 
 from modules import get_model
 
 icon = Image.open("resources/assets/icon.png")
 st.set_page_config(
-    page_title="This Kulbaba Does Not Exist", 
+    page_title="This Flower Does Not Exist", 
     page_icon=icon, 
 )
 
+
 @st.cache()
-def cached_model():
-    model = get_model("2021-05-10_14-35-05_wgan_generator")
+def load_cfg():
+    return OmegaConf.load("params.yaml")
+
+
+@st.cache()
+def cached_model(cfg: DictConfig):
+    model = get_model(cfg)
     return model
 
 
 if __name__ == "__main__":
+
     st.markdown(
-        "<h1 style='text-align: center; color: white;'>THIS KULBABA DOES NOT EXIST</h1>", 
+        "<h1 style='text-align: center; color: white;'>THIS FLOWER DOES NOT EXIST</h1>", 
         unsafe_allow_html=True,
     )
 
-    model = cached_model()
-    image = model()
+    cfg = load_cfg()
+    model = cached_model(cfg)
+
+
+    flower_type = st.sidebar.radio(
+        "What do you want to generate?", ("ALL",) + tuple(cfg.classes.keys())
+    )
+    if flower_type == "ALL":
+        classes = list(cfg.classes.keys())
+    else:
+        classes = [flower_type]
+
+    truncation = st.sidebar.slider("Fidelity/Diversity trade off (truncation)", 0.01, 3., 1.5)
+    grid_size = st.sidebar.slider("The grid size", 1, 7, 5)
+    
+    images = model(n_samples=grid_size ** 2, truncation=truncation, classes=classes)
 
     fig = plt.figure(figsize=(5, 5))
-    fig.patch.set_facecolor("black")
-    plt.imshow(image)
-    plt.axis("off")
+    for ind, image in enumerate(images, 1):
+        plt.subplot(grid_size, grid_size, ind)
+        fig.patch.set_facecolor("black")
+        plt.imshow(image)
+        plt.axis("off")
 
     st.pyplot(fig)
     st.markdown(
@@ -36,18 +61,17 @@ if __name__ == "__main__":
         unsafe_allow_html=True,
     )
 
-    st.subheader("Project info:")
-    st.markdown("Model: [Wasserstein GAN](https://arxiv.org/abs/1701.07875)")
-    st.markdown("Image: 28*28 pixels")
+    st.subheader("The model is based on:")
+    st.markdown("[Wasserstein GAN](https://arxiv.org/abs/1701.07875)")
+    st.markdown("[Conditional Generative Adversarial Nets](https://arxiv.org/abs/1411.1784)")
+    st.markdown("Image size: 28 x 28 pixels")
 
     st.subheader("Contact me:")
     st.markdown("Yaroslav Isaienkov <oiuygl@gmail.com>")
-    st.markdown(
-        "LinkedIn [yisaienkov](https://www.linkedin.com/in/yisaienkov/)"
-    )
+    st.markdown("LinkedIn [yisaienkov](https://www.linkedin.com/in/yisaienkov/)")
     st.markdown(
         (
-            "Source demo code [this_kulbaba_does_not_exist_demo]"
-            "(https://github.com/yisaienkov/this_kulbaba_does_not_exist_demo)"
+            "Source demo code [this_flower_does_not_exist_demo]"
+            "(https://github.com/yisaienkov/this_flower_does_not_exist_demo)"
         )
     )
