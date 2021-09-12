@@ -1,5 +1,12 @@
 FROM python:3.8
 
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y curl ca-certificates sudo git bzip2 libx11-6 \
+    libopencv-dev libgtk2.0-dev libgl1-mesa-glx && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY ./requirements.txt /requirements.txt
 
 RUN python -m pip install -U pip && \

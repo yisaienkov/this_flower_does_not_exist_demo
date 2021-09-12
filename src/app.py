@@ -1,4 +1,4 @@
-from os import truncate
+import cv2
 import streamlit as st
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -46,17 +46,19 @@ if __name__ == "__main__":
     grid_size = st.sidebar.slider("The grid size", 1, 7, 5)
 
     images = model(n_samples=grid_size ** 2, truncation=truncation, classes=classes)
+    with st.container():
+        ind = 0
+        for row in range(grid_size):
+            for col in st.columns(grid_size):
+                with col:
+                    st.image(
+                        cv2.resize(images[ind], (448, 448), interpolation=cv2.INTER_NEAREST),
+                        use_column_width="always",
+                    )
+                    ind += 1
 
-    fig = plt.figure(figsize=(5, 5))
-    for ind, image in enumerate(images, 1):
-        plt.subplot(grid_size, grid_size, ind)
-        fig.patch.set_facecolor("black")
-        plt.imshow(image)
-        plt.axis("off")
-
-    st.pyplot(fig)
     st.markdown(
-        "<p style='text-align: center; color: white;'><i>Press 'R' to get the new kulbaba</i></p>",
+        "<p style='text-align: center; color: white;'><i>Press 'R' to get the new flower(s)</i></p>",
         unsafe_allow_html=True,
     )
 
