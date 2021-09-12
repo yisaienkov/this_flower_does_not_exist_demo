@@ -8,8 +8,8 @@ from modules import get_model
 
 icon = Image.open("resources/assets/icon.png")
 st.set_page_config(
-    page_title="This Flower Does Not Exist", 
-    page_icon=icon, 
+    page_title="This Flower Does Not Exist",
+    page_icon=icon,
 )
 
 
@@ -27,13 +27,12 @@ def cached_model(cfg: DictConfig):
 if __name__ == "__main__":
 
     st.markdown(
-        "<h1 style='text-align: center; color: white;'>THIS FLOWER DOES NOT EXIST</h1>", 
+        "<h1 style='text-align: center; color: white;'>THIS FLOWER DOES NOT EXIST</h1>",
         unsafe_allow_html=True,
     )
 
     cfg = load_cfg()
     model = cached_model(cfg)
-
 
     flower_type = st.sidebar.radio(
         "What do you want to generate?", ("ALL",) + tuple(cfg.classes.keys())
@@ -43,9 +42,9 @@ if __name__ == "__main__":
     else:
         classes = [flower_type]
 
-    truncation = st.sidebar.slider("Fidelity/Diversity trade off (truncation)", 0.01, 3., 1.5)
+    truncation = st.sidebar.slider("Fidelity/Diversity trade off (truncation)", 0.01, 3.0, 1.5)
     grid_size = st.sidebar.slider("The grid size", 1, 7, 5)
-    
+
     images = model(n_samples=grid_size ** 2, truncation=truncation, classes=classes)
 
     fig = plt.figure(figsize=(5, 5))
@@ -57,7 +56,7 @@ if __name__ == "__main__":
 
     st.pyplot(fig)
     st.markdown(
-        "<p style='text-align: center; color: white;'><i>Press 'R' to get the new kulbaba</i></p>", 
+        "<p style='text-align: center; color: white;'><i>Press 'R' to get the new kulbaba</i></p>",
         unsafe_allow_html=True,
     )
 

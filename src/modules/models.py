@@ -30,8 +30,8 @@ class Model:
 
         with torch.no_grad():
             fake_noise = get_truncated_noise(
-                n_samples=n_samples, 
-                z_dim=self.cfg.model.z_dim, 
+                n_samples=n_samples,
+                z_dim=self.cfg.model.z_dim,
                 truncation=truncation,
                 device=self.device,
             )
@@ -45,11 +45,7 @@ class Model:
             fake = self.generator(noise_and_labels)
 
             image_tensor = (fake + 1) / 2
-            
+
             image = image_tensor.detach().cpu().numpy().transpose(0, 2, 3, 1)
 
             return image
-
-
-
-    

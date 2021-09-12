@@ -33,6 +33,6 @@ jobs:
       uses: akhileshns/heroku-deploy@v3.8.9
       with:
         heroku_api_key: ${{ secrets.HEROKU_API_TOKEN }}
-        heroku_app_name: "thiskulbabadoesnotexist"
+        heroku_app_name: "thisflowerdoesnotexist"
         heroku_email: "oiuygl@gmail.com"
         usedocker: true
