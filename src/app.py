@@ -42,8 +42,8 @@ if __name__ == "__main__":
     else:
         classes = [flower_type]
 
-    truncation = st.sidebar.slider("Fidelity/Diversity trade off (truncation)", 0.01, 3.0, 1.5)
-    grid_size = st.sidebar.slider("The grid size", 1, 7, 5)
+    truncation = st.sidebar.slider("Fidelity/Diversity trade off (truncation)", 0.01, 3.0, 1.)
+    grid_size = st.sidebar.slider("The grid size", 1, 7, 4)
 
     images = model(n_samples=grid_size ** 2, truncation=truncation, classes=classes)
     with st.container():
@@ -52,7 +52,10 @@ if __name__ == "__main__":
             for col in st.columns(grid_size):
                 with col:
                     st.image(
-                        cv2.resize(images[ind], (448, 448), interpolation=cv2.INTER_NEAREST),
+                        cv2.resize(
+                            images[ind], (cfg.model.image_size * 8, cfg.model.image_size * 8), 
+                            interpolation=cv2.INTER_NEAREST
+                        ),
                         use_column_width="always",
                     )
                     ind += 1
@@ -65,7 +68,7 @@ if __name__ == "__main__":
     st.subheader("The model is based on:")
     st.markdown("[Wasserstein GAN](https://arxiv.org/abs/1701.07875)")
     st.markdown("[Conditional Generative Adversarial Nets](https://arxiv.org/abs/1411.1784)")
-    st.markdown("Image size: 28 x 28 pixels")
+    st.markdown(f"Image size: {cfg.model.image_size} x {cfg.model.image_size} pixels")
 
     st.subheader("Contact me:")
     st.markdown("Yaroslav Isaienkov <oiuygl@gmail.com>")
