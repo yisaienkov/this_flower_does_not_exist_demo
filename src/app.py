@@ -42,7 +42,7 @@ if __name__ == "__main__":
     else:
         classes = [flower_type]
 
-    truncation = st.sidebar.slider("Fidelity/Diversity trade off (truncation)", 0.01, 3.0, 1.)
+    truncation = st.sidebar.slider("Fidelity/Diversity trade off (truncation)", 0.01, 3.0, 1.5)
     grid_size = st.sidebar.slider("The grid size", 1, 7, 4)
 
     images = model(n_samples=grid_size ** 2, truncation=truncation, classes=classes)
