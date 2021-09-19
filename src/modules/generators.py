@@ -7,22 +7,34 @@ class GeneratorWGAN(nn.Module):
         self.input_dim = input_dim
 
         self.gen = nn.Sequential(
-            self.make_gen_block(input_dim, hidden_dim, kernel_size=5, stride=1),
-            self.make_gen_block(hidden_dim, hidden_dim * 2, kernel_size=6, stride=2),
+            self.make_gen_block(input_dim, hidden_dim * 4, kernel_size=4, stride=1, padding=0),
+            self.make_gen_block(hidden_dim * 4, hidden_dim * 2, kernel_size=4, stride=2),
             self.make_gen_block(hidden_dim * 2, hidden_dim * 2, kernel_size=4, stride=2),
             self.make_gen_block(hidden_dim * 2, hidden_dim, kernel_size=4, stride=2),
-            self.make_gen_block(hidden_dim, im_chan, kernel_size=3, stride=1, final_layer=True),
+            self.make_gen_block(hidden_dim, im_chan, kernel_size=4, stride=2, final_layer=True),
         )
 
-    def make_gen_block(self, input_channels, output_channels, kernel_size=3, stride=2, final_layer=False):
+    def make_gen_block(
+        self,
+        input_channels,
+        output_channels,
+        kernel_size=3,
+        stride=2,
+        padding=1,
+        final_layer=False,
+    ):
         if not final_layer:
             return nn.Sequential(
-                nn.ConvTranspose2d(input_channels, output_channels, kernel_size, stride),
+                nn.ConvTranspose2d(
+                    input_channels, output_channels, kernel_size, stride, padding=padding
+                ),
                 nn.BatchNorm2d(output_channels),
                 nn.ReLU(inplace=True),
             )
         return nn.Sequential(
-            nn.ConvTranspose2d(input_channels, output_channels, kernel_size, stride),
+            nn.ConvTranspose2d(
+                input_channels, output_channels, kernel_size, stride, padding=padding
+            ),
             nn.Tanh(),
         )
 

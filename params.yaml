@@ -1,5 +1,5 @@
 model:
-  url: https://github.com/yisaienkov/this_flower_does_not_exist_demo/releases/download/v0.1.0/2021-09-17_10-41-51_c2wgan_64_generator.pt
+  url: https://github.com/yisaienkov/this_flower_does_not_exist_demo/releases/download/v0.1.1/2021-09-19_11-04-18_c2wgan_64_generator.pt
   image_channels: 3
   z_dim: 64
   n_classes: 2
