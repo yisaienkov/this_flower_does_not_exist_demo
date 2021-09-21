@@ -18,6 +18,7 @@ class GeneratorWGAN(nn.Module):
             self.make_gen_block(hidden_dim, hidden_dim),
             nn.UpsamplingBilinear2d(scale_factor=2),
             self.make_gen_block(hidden_dim, hidden_dim),
+            self.make_gen_block(hidden_dim, hidden_dim),
             self.make_gen_block(hidden_dim, im_chan, final_layer=True),
         )
 
@@ -32,13 +33,7 @@ class GeneratorWGAN(nn.Module):
     ):
         if not final_layer:
             return nn.Sequential(
-                nn.Conv2d(
-                    input_channels,
-                    output_channels,
-                    kernel_size,
-                    stride,
-                    padding=padding,
-                ),
+                nn.Conv2d(input_channels, output_channels, kernel_size, stride, padding=padding),
                 nn.BatchNorm2d(output_channels),
                 nn.ReLU(inplace=True),
             )
