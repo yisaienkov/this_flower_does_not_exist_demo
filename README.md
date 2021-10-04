@@ -1,15 +1,27 @@
 # This Flower Does Not Exist 🌸
 
+Try the app: [thisflowerdoesnotexist.herokuapp.com](https://thisflowerdoesnotexist.herokuapp.com) (for the first time, it can boot ~30 sec).
 
-## 1. Start app
 
-### 1.1. Build the docker image
+## Interface example
+
+![image](https://i.imgur.com/ldXSL9O.png)
+
+
+- Select the type of flowers to generate.
+- Change the truncation threshold to change between images fidelity and diversity. 
+- Set the different sizes of the grid.
+
+
+## Local start
+
+### Build the docker image
 
 ```bash
 $ docker build -t this_flower_does_not_exist_demo .
 ```
 
-### 1.2. Run the docker container
+### Run the docker container
 
 ```bash
 $ docker run -e PORT=5001 -p 5001:5001 this_flower_does_not_exist_demo
