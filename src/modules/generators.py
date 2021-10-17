@@ -19,6 +19,9 @@ class GeneratorWGAN(nn.Module):
             nn.Upsample(scale_factor=2, mode="bilinear", align_corners=False),
             self.make_gen_block(hidden_dim, hidden_dim),
             self.make_gen_block(hidden_dim, hidden_dim),
+            nn.Upsample(scale_factor=2, mode="bilinear", align_corners=False),
+            self.make_gen_block(hidden_dim, hidden_dim),
+            self.make_gen_block(hidden_dim, hidden_dim),
             self.make_gen_block(hidden_dim, im_chan, final_layer=True),
         )
 

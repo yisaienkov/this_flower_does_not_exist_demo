@@ -1,9 +1,9 @@
 model:
-  url: https://github.com/yisaienkov/this_flower_does_not_exist_demo/releases/download/v0.2.0/GANFLOWER-24_05000_c2wgan_64_generator.pt
+  url: https://github.com/yisaienkov/this_flower_does_not_exist_demo/releases/download/v0.3.0/GANFLOWER-28_03500_c2wgan_128_generator.pt
   image_channels: 3
   z_dim: 64
   n_classes: 2
-  image_size: 64
+  image_size: 128
 
 classes:
   leontodon: 0

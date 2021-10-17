@@ -5,7 +5,7 @@ Try the app: [thisflowerdoesnotexist.herokuapp.com](https://thisflowerdoesnotexi
 
 ## Interface example
 
-![image](https://i.imgur.com/ldXSL9O.png)
+![image](https://i.imgur.com/TJMegnz.png)
 
 
 - Select the type of flowers to generate.

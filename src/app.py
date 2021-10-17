@@ -54,7 +54,7 @@ if __name__ == "__main__":
                     st.image(
                         cv2.resize(
                             images[ind],
-                            (cfg.model.image_size * 8, cfg.model.image_size * 8),
+                            (cfg.model.image_size * 4, cfg.model.image_size * 4),
                             interpolation=cv2.INTER_NEAREST,
                         ),
                         use_column_width="always",
